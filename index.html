@@ -1,94 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SMP</title>
-  <style>
-    /* Slick and minimalistic CSS theme */
-    body {
-      background-color: #333;
-      color: #eee;
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin: 20px;
-    }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    .widget-container {
-      width: 400px;
-    }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+            height: 500px;
+            width: 800px;
+        }
 
-    .server-container {
-      width: calc(100% - 420px);
-    }
+        .widget {
+            width: 400px;
+            height: 600px;
+        }
 
-    .server-status {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      text-align: center;
-    }
+        .server {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            height: 600px;
+            padding: 50px;
+            text-align: center;
+        }
 
-    .server-status a {
-      font-size: 24px;
-      text-decoration: none;
-      color: #eee;
-      transition: color 0.3s ease-in-out;
-    }
+        .server h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
 
-    .server-status a.ip {
-      font-size: 32px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
+        .server a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 20px;
+        }
 
-    .server-status a.offline {
-      color: #ff4136;
-    }
+        .server a.status {
+            font-size: 1.2rem;
+            color: #28a745;
+            font-weight: bold;
+        }
 
-    .server-status a.online {
-      color: #2ecc40;
-    }
-  </style>
+        .server a.status.offline {
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="widget-container">
-      <widgetbot server="1091656234492498021" channel="1091657721809481849" width="400" height="600"></widgetbot>
-      <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+<div class="container">
+    <div class="widget">
+        <widgetbot
+                server="1091656234492498021"
+                channel="1091657721809481849"
+                width="400"
+                height="600"
+        ></widgetbot>
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
     </div>
-    <div class="server-container">
-      <div class="server-status">
+    <div class="server">
         <h1>Server Status</h1>
-        <a class="ip" href="https://142.132.135.239" target="_blank">142.132.135.239</a>
-        <a class="status offline">Offline</a>
-      </div>
+        <a href="minecraft://142.132.135.239">142.132.135.239</a>
+        <a class="status" href="#">Online</a>
     </div>
-  </div>
-  <script>
-    // Check server status and update text accordingly
-    fetch('https://api.mcsrvstat.us/2/142.132.135.239')
-      .then(response => response.json())
-      .then(data => {
-        const status = data.online ? 'Online' : 'Offline';
-        const statusClass = data.online ? 'online' : 'offline';
-        const statusText = document.querySelector('.server-status .status');
-        statusText.textContent = status;
-        statusText.classList.remove('offline', 'online');
-        statusText.classList.add(statusClass);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  </script>
+</div>
 </body>
 </html>
