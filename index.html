@@ -1,74 +1,66 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Server Status</title>
-	<style>
-		body {
-			background-color: #1f2024;
-			color: #fff;
-			font-family: sans-serif;
-			text-align: center;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			height: 100vh;
-			margin: 0;
-			padding: 0;
-		}
-
-		h1 {
-			font-size: 3rem;
-			margin-bottom: 2rem;
-		}
-
-		.online {
-			color: green;
-			font-size: 2rem;
-			margin-bottom: 2rem;
-		}
-
-		.offline {
-			color: red;
-			font-size: 2rem;
-			margin-bottom: 2rem;
-		}
-
-		.discord-widget {
-			margin-top: 2rem;
-		}
-	</style>
-</head>
-<body>
-	<h1>Server Status</h1>
-	<div id="status"></div>
-	<div class="discord-widget">
-		<widgetbot
-			server="1091656234492498021"
-			channel="1091657721809481849"
-			width="800"
-			height="600"
-		></widgetbot>
-		<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-	</div>
-	<script>
-		function checkServerStatus() {
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', 'https://api.mcsrvstat.us/2/142.132.135.239', true);
-			xhr.onload = function() {
-				var response = JSON.parse(xhr.responseText);
-				if (response.online) {
-					document.getElementById('status').innerHTML = '<p class="online">Online</p>';
-				} else {
-					document.getElementById('status').innerHTML = '<p class="offline">Offline</p>';
-				}
-			};
-			xhr.send();
-		}
-
-		checkServerStatus();
-		setInterval(checkServerStatus, 60000);
-	</script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Server Status Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        height: 100vh;
+        width: 100vw;
+      }
+      .widget-container {
+        width: 50%;
+        height: 100%;
+        padding: 2rem;
+        box-sizing: border-box;
+      }
+      .server-container {
+        width: 50%;
+        height: 100%;
+        padding: 2rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .server-status {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .ip {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #0091EA;
+      }
+      .offline {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="widget-container">
+        <widgetbot
+          server="1091656234492498021"
+          channel="1091657721809481849"
+          width="800"
+          height="600"
+        ></widgetbot>
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+      </div>
+      <div class="server-container">
+        <div class="server-status">Server Status</div>
+        <a class="ip" href="142.132.135.239">142.132.135.239</a>
+        <a class="offline" href="#">Offline</a>
+      </div>
+    </div>
+  </body>
 </html>
