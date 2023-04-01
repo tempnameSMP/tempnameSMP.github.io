@@ -1,66 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Server Status Page</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        display: flex;
-        flex-direction: row;
-        height: 100vh;
-        width: 100vw;
-      }
-      .widget-container {
-        width: 50%;
-        height: 100%;
-        padding: 2rem;
-        box-sizing: border-box;
-      }
-      .server-container {
-        width: 50%;
-        height: 100%;
-        padding: 2rem;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      .server-status {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-      .ip {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: #0091EA;
-      }
-      .offline {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="widget-container">
-        <widgetbot
-          server="1091656234492498021"
-          channel="1091657721809481849"
-          width="800"
-          height="600"
-        ></widgetbot>
-        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-      </div>
-      <div class="server-container">
-        <div class="server-status">Server Status</div>
-        <a class="ip" href="142.132.135.239">142.132.135.239</a>
-        <a class="offline" href="#">Offline</a>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMP</title>
+  <style>
+    /* Slick and minimalistic CSS theme */
+    body {
+      background-color: #333;
+      color: #eee;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 20px;
+    }
+
+    .widget-container {
+      width: 400px;
+    }
+
+    .server-container {
+      width: calc(100% - 420px);
+    }
+
+    .server-status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+    }
+
+    .server-status a {
+      font-size: 24px;
+      text-decoration: none;
+      color: #eee;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .server-status a.ip {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .server-status a.offline {
+      color: #ff4136;
+    }
+
+    .server-status a.online {
+      color: #2ecc40;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="widget-container">
+      <widgetbot server="1091656234492498021" channel="1091657721809481849" width="400" height="600"></widgetbot>
+      <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+    </div>
+    <div class="server-container">
+      <div class="server-status">
+        <h1>Server Status</h1>
+        <a class="ip" href="https://142.132.135.239" target="_blank">142.132.135.239</a>
+        <a class="status offline">Offline</a>
       </div>
     </div>
-  </body>
+  </div>
+  <script>
+    // Check server status and update text accordingly
+    fetch('https://api.mcsrvstat.us/2/142.132.135.239')
+      .then(response => response.json())
+      .then(data => {
+        const status = data.online ? 'Online' : 'Offline';
+        const statusClass = data.online ? 'online' : 'offline';
+        const statusText = document.querySelector('.server-status .status');
+        statusText.textContent = status;
+        statusText.classList.remove('offline', 'online');
+        statusText.classList.add(statusClass);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  </script>
+</body>
 </html>
